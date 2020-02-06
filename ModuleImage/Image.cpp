@@ -1,6 +1,9 @@
 #include "Image.h"
 #include "assert.h"
+#include <iostream>
 
+using namespace std;
+//jtj
 Image::Image()
 {
 	tab = nullptr;
@@ -52,5 +55,12 @@ void Image::erase(const Pixel& color)
 
 void Image::test()
 {
-	//TODO
+    Pixel couleur;
+	drawRect(15,20,50,75,couleur);
+	for(int i=15;i<50;i++){
+        for(int j=20;j<75;i++){
+
+        }
+	}
+
 }

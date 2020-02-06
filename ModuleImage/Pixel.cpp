@@ -7,7 +7,7 @@ Pixel::Pixel()
 	b = 0;
 }
 
-Pixel::Pixel(char _r, char _g, char _b)
+Pixel::Pixel(int _r, int _g, int _b)
 {
 	r = _r;
 	g = _g;
@@ -29,17 +29,17 @@ char Pixel::getBlue() const
 	return b;
 }
 
-void Pixel::setRed(char _r)
+void Pixel::setRed(int _r)
 {
 	r = _r;
 }
 
-void Pixel::setGreen(char _g)
+void Pixel::setGreen(int _g)
 {
 	g = _g;
 }
 
-void Pixel::setBlue(char _b)
+void Pixel::setBlue(int _b)
 {
 	b = _b;
 }
