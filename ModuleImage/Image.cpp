@@ -1,5 +1,7 @@
 #include "Image.h"
 #include "assert.h"
+#include <iostream>
+using namespace std;
 
 Image::Image()
 {
@@ -52,5 +54,27 @@ void Image::erase(const Pixel& color)
 
 void Image::test()
 {
-	//TODO
+	Pixel pInit;
+	Pixel pRef;
+	pInit.setBlue(0);
+	pInit.setGreen(0);
+	pInit.setRed(0);
+	setPix(1, 1, pInit);
+	pRef.setBlue(0);
+	pRef.setGreen(0);
+	pRef.setRed(0);
+    if(pRef.getBlue()==pInit.getBlue())
+    {
+        if(pRef.getGreen()==pInit.getGreen())
+        {
+            if(pRef.getRed()==pInit.getRed())
+            {
+                cout << "setPix est validée";
+            }
+        }
+    }
+    else
+    {
+        cout << "setPix ne marche pas";
+    }
 }
