@@ -81,7 +81,7 @@ void Image::test()
 		if (isGetPixValid) cout << "getPix is Valid!!" << endl << endl;
 
 
-	// Test rect
+	// Test DrawRect
 
 		bool isDrawRectValid = true;
 		Pixel couleur(255, 255, 255);
@@ -110,6 +110,7 @@ void Image::test()
 		{
 			cout << "setPix ne marche pas" << endl << endl;
 		}
+
 	//Test erase
 		bool isEraseValid = true;
 		Pixel er(46, 84, 234);
