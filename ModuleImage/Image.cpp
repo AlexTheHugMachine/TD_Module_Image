@@ -1,5 +1,8 @@
 #include "Image.h"
 #include "assert.h"
+#include <iostream>
+
+using namespace std;
 
 Image::Image()
 {
@@ -52,5 +55,15 @@ void Image::erase(const Pixel& color)
 
 void Image::test()
 {
-	//TODO
+	//Test of getPix
+	Pixel p = Pixel(255, 255, 255); 
+	getPix(3, 4) = p;
+	Pixel check = tab[4 * dimx + 3];
+	int red = check.getRed();
+	cout << red << endl;
+
+
+	int a = 1;
+	int &b = a;
+
 }

@@ -4,15 +4,15 @@
 class Pixel
 {
 private:
-	char r, g, b;
+	int r, g, b;
 
 public:
 	Pixel();
 	Pixel(char _r, char _g, char _b);
 
-	char getRed() const;
-	char getGreen() const;
-	char getBlue() const;
+	int getRed() const;
+	int getGreen() const;
+	int getBlue() const;
 
 	void setRed(char _r);
 	void setGreen(char _g);

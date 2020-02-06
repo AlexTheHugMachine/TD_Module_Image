@@ -5,7 +5,7 @@ using namespace std;
 
 int main(void)
 {
-	Image myImage;
+	Image myImage(200, 200);
 	myImage.test();
 	return 0;
 }
