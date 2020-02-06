@@ -100,24 +100,12 @@ void Image::test()
 		else cout << "ERROR : DrawRect doesn't work !!" << endl << endl;
 
 		//Test setPix
-		Pixel pInit;
-		Pixel pRef;
-		pInit.setBlue(0);
-		pInit.setGreen(0);
-		pInit.setRed(0);
+		Pixel pInit(255, 255, 255);
 		setPix(1, 1, pInit);
-		pRef.setBlue(0);
-		pRef.setGreen(0);
-		pRef.setRed(0);
-		if (pRef.getBlue() == pInit.getBlue())
+		
+		if (pInit == tab[1*dimx + 1])
 		{
-			if (pRef.getGreen() == pInit.getGreen())
-			{
-				if (pRef.getRed() == pInit.getRed())
-				{
-					cout << "setPix est validee" << endl << endl;
-				}
-			}
+			cout << "setPix est validee" << endl << endl;
 		}
 		else
 		{
