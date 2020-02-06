@@ -1,9 +1,11 @@
 #include <iostream>
+#include "Image.h"
 
 using namespace std;
 
 int main(void)
 {
-	cout << "Hello World!!" << endl;
+	Image myImage;
+	myImage.test();
 	return 0;
 }
