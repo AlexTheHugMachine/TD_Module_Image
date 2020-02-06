@@ -66,4 +66,40 @@ void Image::test()
 	int a = 1;
 	int &b = a;
 
+
+// Test rect
+
+    Pixel couleur;
+	drawRect(15,20,50,75,couleur);
+	for(int i=15;i<50;i++){
+        for(int j=20;j<75;i++){
+
+        }
+	}
+
+
+//Test setPix
+	Pixel pInit;
+	Pixel pRef;
+	pInit.setBlue(0);
+	pInit.setGreen(0);
+	pInit.setRed(0);
+	setPix(1, 1, pInit);
+	pRef.setBlue(0);
+	pRef.setGreen(0);
+	pRef.setRed(0);
+    if(pRef.getBlue()==pInit.getBlue())
+    {
+        if(pRef.getGreen()==pInit.getGreen())
+        {
+            if(pRef.getRed()==pInit.getRed())
+            {
+                cout << "setPix est validée";
+            }
+        }
+    }
+    else
+    {
+        cout << "setPix ne marche pas";
+    }
 }
