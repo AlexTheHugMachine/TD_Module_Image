@@ -28,7 +28,6 @@ Image::~Image()
 
 Pixel& Image::getPix(int x, int y) const
 {
-	//working????
 	return tab[y * dimx + x] ;
 }
 
@@ -61,8 +60,8 @@ void Image::test()
 	if (p1 == p2)
 	{
 		cout << "Pixel Equality check is valid!" << endl << endl;
-
-		//Test of getPix
+	
+	//Test of getPix
 
 		bool isGetPixValid = true;
 		Pixel& pix = getPix(3, 4);
@@ -82,15 +81,24 @@ void Image::test()
 		if (isGetPixValid) cout << "getPix is Valid!!" << endl << endl;
 
 
-		// Test rect
+	// Test rect
 
-		Pixel couleur;
-		drawRect(15, 20, 50, 75, couleur);
-		for (int i = 15; i < 50; i++) {
-			for (int j = 20; j < 75; j++) {
-
+		bool isDrawRectValid = true;
+		Pixel couleur(255, 255, 255);
+		int x1 = 10, x2 = 20, y1 = 20, y2 = 30;
+		drawRect(x1, y1, x2, y2, couleur);
+		for (int i = x1; i <= x2; i++) {
+			for (int j = y1; j <= y2; j++) {
+				if (!(tab[j * dimx + i] == couleur))
+				{
+					isDrawRectValid = false;
+					cout << i << " " << j << endl;
+				}
 			}
 		}
+		if (isDrawRectValid) cout << "DrawRect is Valid" << endl << endl;
+		else cout << "ERROR : DrawRect doesn't work !!" << endl << endl;
+
 		//Test setPix
 		Pixel pInit;
 		Pixel pRef;
