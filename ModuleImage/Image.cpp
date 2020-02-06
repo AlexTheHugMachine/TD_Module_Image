@@ -49,7 +49,7 @@ void Image::drawRect(int xmin, int ymin, int xmax, int ymax, const Pixel& color)
 
 void Image::erase(const Pixel& color)
 {
-	drawRect(0, 0, dimx, dimy, color);
+	drawRect(0, 0, dimx - 1, dimy - 1, color);
 }
 
 void Image::test()
@@ -92,14 +92,13 @@ void Image::test()
 				if (!(tab[j * dimx + i] == couleur))
 				{
 					isDrawRectValid = false;
-					cout << i << " " << j << endl;
 				}
 			}
 		}
 		if (isDrawRectValid) cout << "DrawRect is Valid" << endl << endl;
 		else cout << "ERROR : DrawRect doesn't work !!" << endl << endl;
 
-		//Test setPix
+	//Test setPix
 		Pixel pInit(255, 255, 255);
 		setPix(1, 1, pInit);
 		
@@ -111,6 +110,21 @@ void Image::test()
 		{
 			cout << "setPix ne marche pas" << endl << endl;
 		}
+	//Test erase
+		bool isEraseValid = true;
+		Pixel er(46, 84, 234);
+		erase(er);
+		for (int i = 0; i < dimx; i++) {
+			for (int j = 0; j < dimy; j++) {
+				if (!(tab[j * dimx + i] == er))
+				{
+					isEraseValid = false;
+				}
+			}
+		}
+		if (isEraseValid) cout << "Erase is Valid" << endl << endl;
+		else cout << "ERROR : Erase doesn't work !!" << endl << endl;
+
 	}
 	else // Pixel equality check failed...
 	{
