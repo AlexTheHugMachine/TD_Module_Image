@@ -1,9 +1,14 @@
 #include "Image.h"
 #include "assert.h"
 #include <iostream>
+<<<<<<< HEAD
 
 using namespace std;
 //jtj
+=======
+using namespace std;
+
+>>>>>>> ec68b3ecd8b13db972ea76cebc133ebc2c6790ce
 Image::Image()
 {
 	tab = nullptr;
@@ -54,6 +59,7 @@ void Image::erase(const Pixel& color)
 }
 
 void Image::test()
+// Test rect
 {
     Pixel couleur;
 	drawRect(15,20,50,75,couleur);
@@ -63,4 +69,29 @@ void Image::test()
         }
 	}
 
+
+//Test setPix
+	Pixel pInit;
+	Pixel pRef;
+	pInit.setBlue(0);
+	pInit.setGreen(0);
+	pInit.setRed(0);
+	setPix(1, 1, pInit);
+	pRef.setBlue(0);
+	pRef.setGreen(0);
+	pRef.setRed(0);
+    if(pRef.getBlue()==pInit.getBlue())
+    {
+        if(pRef.getGreen()==pInit.getGreen())
+        {
+            if(pRef.getRed()==pInit.getRed())
+            {
+                cout << "setPix est validée";
+            }
+        }
+    }
+    else
+    {
+        cout << "setPix ne marche pas";
+    }
 }
