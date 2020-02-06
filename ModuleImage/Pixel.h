@@ -17,6 +17,8 @@ public:
 	void setRed(int _r);
 	void setGreen(int _g);
 	void setBlue(int _b);
+
+	bool operator== (const Pixel& other);
 };
 
 #endif // !PIXEL_H

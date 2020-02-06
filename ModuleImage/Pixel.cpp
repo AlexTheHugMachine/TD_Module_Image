@@ -43,3 +43,10 @@ void Pixel::setBlue(int _b)
 {
 	b = _b;
 }
+
+bool Pixel::operator==(const Pixel& other)
+{
+	return r == other.getRed() &&
+		g == other.getGreen() &&
+		b == other.getBlue();
+}
