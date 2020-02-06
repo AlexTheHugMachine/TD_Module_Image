@@ -52,5 +52,5 @@ void Image::erase(const Pixel& color)
 
 void Image::test()
 {
-	//TODO
+	//TODO !!!
 }
