@@ -7,39 +7,39 @@ Pixel::Pixel()
 	b = 0;
 }
 
-Pixel::Pixel(int _r, int _g, int _b)
+Pixel::Pixel(unsigned char _r, unsigned char _g, unsigned char _b)
 {
 	r = _r;
 	g = _g;
 	b = _b;
 }
 
-int Pixel::getRed() const
+unsigned char Pixel::getRed() const
 {
 	return r;
 }
 
-int Pixel::getGreen() const
+unsigned char Pixel::getGreen() const
 {
 	return g;
 }
 
-int Pixel::getBlue() const
+unsigned char Pixel::getBlue() const
 {
 	return b;
 }
 
-void Pixel::setRed(int _r)
+void Pixel::setRed(unsigned char _r)
 {
 	r = _r;
 }
 
-void Pixel::setGreen(int _g)
+void Pixel::setGreen(unsigned char _g)
 {
 	g = _g;
 }
 
-void Pixel::setBlue(int _b)
+void Pixel::setBlue(unsigned char _b)
 {
 	b = _b;
 }
