@@ -1,6 +1,7 @@
 #include "Image.h"
 #include "assert.h"
 #include <iostream>
+#include <SDL.h>
 
 using namespace std;
 
@@ -50,6 +51,11 @@ void Image::drawRect(int xmin, int ymin, int xmax, int ymax, const Pixel& color)
 void Image::erase(const Pixel& color)
 {
 	drawRect(0, 0, dimx - 1, dimy - 1, color);
+}
+
+void Image::display() const
+{
+
 }
 
 void Image::test()
