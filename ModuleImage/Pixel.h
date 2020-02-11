@@ -4,19 +4,19 @@
 class Pixel
 {
 private:
-	int r, g, b;
+	unsigned char r, g, b;
 
 public:
 	Pixel();
-	Pixel(int _r, int _g, int _b);
+	Pixel(unsigned char _r, unsigned char _g, unsigned char _b);
 
-	int getRed() const;
-	int getGreen() const;
-	int getBlue() const;
+	unsigned char getRed() const;
+	unsigned char getGreen() const;
+	unsigned char getBlue() const;
 
-	void setRed(int _r);
-	void setGreen(int _g);
-	void setBlue(int _b);
+	void setRed(unsigned char _r);
+	void setGreen(unsigned char _g);
+	void setBlue(unsigned char _b);
 
 	bool operator== (const Pixel& other);
 };

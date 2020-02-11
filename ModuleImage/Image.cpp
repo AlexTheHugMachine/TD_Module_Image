@@ -1,7 +1,10 @@
 #include "Image.h"
 #include "assert.h"
-#include <iostream>
 #include <SDL.h>
+#include <iostream>
+#include <fstream>
+#include <string.h>
+
 
 using namespace std;
 
@@ -53,6 +56,53 @@ void Image::erase(const Pixel& color)
 	drawRect(0, 0, dimx - 1, dimy - 1, color);
 }
 
+void Image::sauver(const string & filename) const {
+    ofstream fichier (filename.c_str());
+    assert(fichier.is_open());
+    fichier << "P3" << endl;
+    fichier << dimx << " " << dimy << endl;
+    fichier << "255" << endl;
+    for(unsigned int y=0; y<dimy; ++y)
+        for(unsigned int x=0; x<dimx; ++x) {
+            Pixel& pix = getPix(x++,y);
+            fichier << +pix.getRed() << " " << +pix.getGreen() << " " << +pix.getBlue() << " ";
+        }
+    cout << "Sauvegarde de l'image " << filename << " ... OK\n";
+    fichier.close();
+}
+
+void Image::ouvrir(const string & filename) {
+    ifstream fichier (filename.c_str());
+    assert(fichier.is_open());
+        char r,g,b;
+        string mot;
+        dimx = dimy = 0;
+        fichier >> mot >> dimx >> dimy >> mot;
+        assert(dimx > 0 && dimy > 0);
+        if (tab != NULL) delete [] tab;
+        tab = new Pixel [dimx*dimy];
+    for(unsigned int y=0; y<dimy; ++y)
+        for(unsigned int x=0; x<dimx; ++x) {
+            fichier >> r >> b >> g;
+            getPix(x,y).setRed(r);
+            getPix(x,y).setGreen(g);
+            getPix(x,y).setBlue(b);
+        }
+    fichier.close();
+    cout << "Lecture de l'image " << filename << " ... OK\n";
+}
+
+void Image::afficherConsole(){
+    cout << dimx << " " << dimy << endl;
+    for(unsigned int y=0; y<dimy; ++y) {
+        for(unsigned int x=0; x<dimx; ++x) {
+            Pixel& pix = getPix(x,y);
+            cout << +pix.getRed() << " " << +pix.getGreen() << " " << +pix.getBlue() << " ";
+        }
+        cout << endl;
+    }
+}
+
 void Image::display() const
 {
 
@@ -66,7 +116,7 @@ void Image::test()
 	if (p1 == p2)
 	{
 		cout << "Pixel Equality check is valid!" << endl << endl;
-	
+
 	//Test of getPix
 
 		bool isGetPixValid = true;
@@ -107,7 +157,7 @@ void Image::test()
 	//Test setPix
 		Pixel pInit(255, 255, 255);
 		setPix(1, 1, pInit);
-		
+
 		if (pInit == tab[1*dimx + 1])
 		{
 			cout << "setPix est validee" << endl << endl;
