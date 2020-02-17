@@ -3,11 +3,15 @@
 
 #include <string>
 #include "Pixel.h"
+#include <SDL.h>
+
+const int WIDTH = 800, HEIGHT = 600;
 class Image
 {
 private:
 	Pixel* tab;
 	int dimx, dimy;
+	SDL_Window* window;
 
 public:
 	Image();

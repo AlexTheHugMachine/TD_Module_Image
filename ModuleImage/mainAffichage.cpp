@@ -24,4 +24,6 @@ int main(int argc, char** argv)
 	image.setPix(5, 1, cyan);
 
 	image.display();
+
+	return 0;
 }

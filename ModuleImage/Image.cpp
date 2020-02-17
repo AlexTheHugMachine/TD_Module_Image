@@ -1,6 +1,5 @@
 #include "Image.h"
 #include "assert.h"
-#include <SDL.h>
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -13,6 +12,10 @@ Image::Image()
 	tab = nullptr;
 	dimx = 0;
 	dimy = 0;
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		cerr << "SDL_Init error: " << SDL_GetError() << endl;
+	}
+	window = nullptr;
 }
 
 Image::Image(int _dimx, int _dimy)
@@ -21,6 +24,15 @@ Image::Image(int _dimx, int _dimy)
 	dimx = _dimx;
 	dimy = _dimy;
 	tab = new Pixel[dimx * dimy];
+
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+		cerr << "SDL_Init error: " << SDL_GetError() << endl;
+	}
+	window = SDL_CreateWindow("Module Image", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
+	if (window == nullptr)
+	{
+		cerr << "SDL_CreapteWindow error : " << SDL_GetError() << endl;
+	}
 }
 
 Image::~Image()
@@ -28,6 +40,8 @@ Image::~Image()
 	delete[] tab;
 	tab = nullptr;
 	dimx = dimy = 0;
+	SDL_DestroyWindow(window);
+	SDL_Quit(); 
 }
 
 Pixel& Image::getPix(int x, int y) const
@@ -105,7 +119,18 @@ void Image::afficherConsole(){
 
 void Image::display() const
 {
+	SDL_Event windowEvent;
 
+	while (true)
+	{
+		if (SDL_PollEvent(&windowEvent))
+		{
+			if (windowEvent.type == SDL_QUIT)
+			{
+				break;
+			}
+		}
+	}
 }
 
 void Image::test()
