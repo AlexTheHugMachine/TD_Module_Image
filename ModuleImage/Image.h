@@ -12,6 +12,7 @@ private:
 	Pixel* tab;
 	int dimx, dimy;
 	SDL_Window* window;
+	SDL_Renderer* renderer;
 
 public:
 	Image();

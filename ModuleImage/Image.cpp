@@ -16,6 +16,7 @@ Image::Image()
 		cerr << "SDL_Init error: " << SDL_GetError() << endl;
 	}
 	window = nullptr;
+	renderer = nullptr;
 }
 
 Image::Image(int _dimx, int _dimy)
@@ -28,10 +29,17 @@ Image::Image(int _dimx, int _dimy)
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		cerr << "SDL_Init error: " << SDL_GetError() << endl;
 	}
+
 	window = SDL_CreateWindow("Module Image", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
 	if (window == nullptr)
 	{
 		cerr << "SDL_CreapteWindow error : " << SDL_GetError() << endl;
+	}
+
+	renderer = SDL_CreateRenderer(window, -1, NULL);
+	if (renderer == nullptr)
+	{
+		cerr << "SDL_CreateRenderer error : " << SDL_GetError() << endl;
 	}
 }
 
@@ -41,6 +49,7 @@ Image::~Image()
 	tab = nullptr;
 	dimx = dimy = 0;
 	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(renderer);
 	SDL_Quit(); 
 }
 
@@ -130,6 +139,18 @@ void Image::display() const
 				break;
 			}
 		}
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+		SDL_RenderClear(renderer);
+		for (unsigned int i = 0; i < dimx; ++i)
+		{
+			for (unsigned int j = 0; j < dimy; ++j)
+			{
+				const Pixel p = tab[dimx * j + i];
+				SDL_SetRenderDrawColor(renderer, p.getRed(), p.getGreen(), p.getBlue(), 255);
+				SDL_RenderDrawPoint(renderer, i, j);
+			}
+		}
+		SDL_RenderPresent(renderer);
 	}
 }
 
