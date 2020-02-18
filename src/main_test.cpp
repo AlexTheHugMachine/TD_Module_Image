@@ -6,6 +6,6 @@ using namespace std;
 int main(void)
 {
 	Image myImage(200, 200);
-	myImage.test();
+	myImage.testRegression();
 	return 0;
 }

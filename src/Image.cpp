@@ -19,11 +19,11 @@ Image::Image()
 	renderer = nullptr;
 }
 
-Image::Image(int _dimx, int _dimy)
+Image::Image(int dimensionX, int dimensionY)
 {
-	assert(_dimx > 0 && _dimy > 0);
-	dimx = _dimx;
-	dimy = _dimy;
+	assert(dimensionX > 0 && dimensionY > 0);
+	dimx = dimensionX;
+	dimy = dimensionY;
 	tab = new Pixel[dimx * dimy];
 
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -58,25 +58,25 @@ Pixel& Image::getPix(int x, int y) const
 	return tab[y * dimx + x] ;
 }
 
-void Image::setPix(int x, int y, const Pixel& p)
+void Image::setPix(int x, int y, const Pixel& couleur)
 {
-	tab[y * dimx + x] = p;
+	tab[y * dimx + x] = couleur;
 }
 
-void Image::drawRect(int xmin, int ymin, int xmax, int ymax, const Pixel& color)
+void Image::dessinerRectangle(int Xmin, int Ymin, int Xmax, int Ymax, const Pixel& couleur)
 {
-	for (int i = xmin; i <= xmax; i++)
+	for (int i = Xmin; i <= Xmax; i++)
 	{
-		for (int j = ymin; j <= ymax; j++)
+		for (int j = Ymin; j <= Ymax; j++)
 		{
-			setPix(i, j, color);
+			setPix(i, j, couleur);
 		}
 	}
 }
 
-void Image::erase(const Pixel& color)
+void Image::effacer(const Pixel& couleur)
 {
-	drawRect(0, 0, dimx - 1, dimy - 1, color);
+	dessinerRectangle(0, 0, dimx - 1, dimy - 1, couleur);
 }
 
 void Image::sauver(const string & filename) const {
@@ -115,7 +115,7 @@ void Image::ouvrir(const string & filename) {
     cout << "Lecture de l'image " << filename << " ... OK\n";
 }
 
-void Image::afficherConsole(){
+void Image::afficherConsole() const{
     cout << dimx << " " << dimy << endl;
     for(unsigned int y=0; y<dimy; ++y) {
         for(unsigned int x=0; x<dimx; ++x) {
@@ -126,7 +126,7 @@ void Image::afficherConsole(){
     }
 }
 
-void Image::display() const
+void Image::afficher() const
 {
 	SDL_Event windowEvent;
 
@@ -154,7 +154,7 @@ void Image::display() const
 	}
 }
 
-void Image::test()
+void Image::testRegression()
 {
 //Test of Pixel equality
 	Pixel p1(255, 255, 255);
@@ -183,12 +183,12 @@ void Image::test()
 		if (isGetPixValid) cout << "getPix is Valid!!" << endl << endl;
 
 
-	// Test DrawRect
+	// Test dessinerRectangle
 
 		bool isDrawRectValid = true;
 		Pixel couleur(255, 255, 255);
 		int x1 = 10, x2 = 20, y1 = 20, y2 = 30;
-		drawRect(x1, y1, x2, y2, couleur);
+		dessinerRectangle(x1, y1, x2, y2, couleur);
 		for (int i = x1; i <= x2; i++) {
 			for (int j = y1; j <= y2; j++) {
 				if (!(tab[j * dimx + i] == couleur))
@@ -197,8 +197,8 @@ void Image::test()
 				}
 			}
 		}
-		if (isDrawRectValid) cout << "DrawRect is Valid" << endl << endl;
-		else cout << "ERROR : DrawRect doesn't work !!" << endl << endl;
+		if (isDrawRectValid) cout << "dessinerRectangle is Valid" << endl << endl;
+		else cout << "ERROR : dessinerRectangle doesn't work !!" << endl << endl;
 
 	//Test setPix
 		Pixel pInit(255, 255, 255);
@@ -213,10 +213,10 @@ void Image::test()
 			cout << "setPix ne marche pas" << endl << endl;
 		}
 
-	//Test erase
+	//Test effacer
 		bool isEraseValid = true;
 		Pixel er(46, 84, 234);
-		erase(er);
+		effacer(er);
 		for (int i = 0; i < dimx; i++) {
 			for (int j = 0; j < dimy; j++) {
 				if (!(tab[j * dimx + i] == er))

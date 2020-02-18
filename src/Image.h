@@ -16,20 +16,20 @@ private:
 
 public:
 	Image();
-	Image(int _dimx, int _dimy);
+	Image(int dimensionX, int dimensionY);
 	~Image();
 
 	Pixel& getPix(int x, int y) const;
-	void setPix(int x, int y, const Pixel& p);
-	void drawRect(int xmin, int ymin, int xmax, int ymax, const Pixel& color);
+	void setPix(int x, int y, const Pixel& couleur);
+	void dessinerRectangle(int Xmin, int Ymin, int Xmax, int Ymax, const Pixel& color);
 
-	void erase(const Pixel& color);
-	void display() const;
+	void effacer(const Pixel& couleur);
+	void afficher() const;
 	void sauver(const std::string & filename) const;
 	void ouvrir(const std::string & filename);
-	void afficherConsole();
+	void afficherConsole() const;
 
-	void test();
+	void testRegression();
 
 };
 
