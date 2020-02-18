@@ -48,8 +48,8 @@ Image::~Image()
 	delete[] tab;
 	tab = nullptr;
 	dimx = dimy = 0;
-	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
 	SDL_Quit(); 
 }
 

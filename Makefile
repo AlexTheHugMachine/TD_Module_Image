@@ -27,5 +27,4 @@ obj/Pixel.o: src/Pixel.cpp src/Pixel.h
 	$(CC) -o $@ $< $(CCFLAGS)
 
 clean:
-	rm obj/*.o
-	rm $(TARGETS)
+	rm obj/*.o $(TARGETS)
