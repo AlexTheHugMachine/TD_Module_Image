@@ -26,7 +26,7 @@ Image::Image(int dimensionX, int dimensionY)
 	dimy = dimensionY;
 	tab = new Pixel[dimx * dimy];
 
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		cerr << "SDL_Init error: " << SDL_GetError() << endl;
 	}
 
