@@ -1,4 +1,4 @@
-#include "Image.h"
+#include "../core/Image.h"
 
 int main(int argc, char** argv)
 {
@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 	Pixel black(0, 0, 0);
 	Pixel green(0, 192, 0);
 	Pixel cyan(128, 255, 255);
-	
+
 	image.erase(black);
 	image.drawRect(3, 0, 5, 2, green);
 	image.drawRect(1, 4, 7, 4, green);
