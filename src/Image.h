@@ -10,7 +10,7 @@ class Image
 {
 private:
 	Pixel* tab;
-	int dimx, dimy;
+	unsigned int dimx, dimy;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
 

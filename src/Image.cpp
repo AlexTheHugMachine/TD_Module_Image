@@ -36,7 +36,7 @@ Image::Image(int dimensionX, int dimensionY)
 		cerr << "SDL_CreapteWindow error : " << SDL_GetError() << endl;
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, NULL);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (renderer == nullptr)
 	{
 		cerr << "SDL_CreateRenderer error : " << SDL_GetError() << endl;
@@ -217,8 +217,8 @@ void Image::testRegression()
 		bool isEraseValid = true;
 		Pixel er(46, 84, 234);
 		effacer(er);
-		for (int i = 0; i < dimx; i++) {
-			for (int j = 0; j < dimy; j++) {
+		for (unsigned int i = 0; i < dimx; i++) {
+			for (unsigned int j = 0; j < dimy; j++) {
 				if (!(tab[j * dimx + i] == er))
 				{
 					isEraseValid = false;
