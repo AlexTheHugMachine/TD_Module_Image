@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../core/Image.h"
+#include "Image.h"
 
 using namespace std;
 

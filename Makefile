@@ -1,36 +1,33 @@
-CORE = core/Image.cpp core/Image.h core/Pixel.cpp core/Pixel.h
-
-SRC_TEST = $(CORE) test/main_test.cpp
-FINAL_TARGET_TEST = test
-
-SRC_AFFICHAGE = $(CORE) affichage/main_affichage.cpp
-FINAL_TARGET_AFFICHAGE = affichage
-
-INCLUDE_DIR_SDL = -I/usr/lib/x86_64-linux-gnu/
-LIBS_SDL = -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+TARGETS = bin/affichage bin/test #bin/exemple
+INCLUDE_DIR_SDL = -I/usr/include/SDL2
 
 CC = g++
 LD = g++
-LDFLAGS = 
-CCFLAGS = -Wall -ggdb
-OBJ_DIR = obj
-SRC_DIR = src
-BIN_DIR = bin
-INCLUDE_DIR = -Isrc
+LDFLAGS = -lSDL2 -lSDL2_image #-lSDL2_ttf -lSDL2_mixer  
+CCFLAGS = -Wall -c -ggdb
 
-default: make_dir $(BIN_DIR)/$(FINAL_TARGET_AFFICHAGE) $(BIN_DIR)/$(FINAL_TARGET_TEST)
+all: $(TARGETS)
 
-make_dir:
-	test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+bin/affichage: obj/main_affichage.o obj/Image.o obj/Pixel.o
+	$(LD) -o $@ $^ $(LDFLAGS) 
 
-$(BIN_DIR)/$(FINAL_TARGET_AFFICHAGE): $(SRC_AFFICHAGE:%.cpp=$(OBJ_DIR)/%.o)
-	$(LD) $+ -o $@ $(LDFLAGS) $(LIBS_SDL)
+bin/test: obj/main_test.o obj/Image.o obj/Pixel.o
+	$(LD) -o $@ $^ $(LDFLAGS) $(INCLUDE_DIR_SDL)
 
-$(BIN_DIR)/$(FINAL_TARGET_TEST): $(SRC_TEST:%.cpp=$(OBJ_DIR)/%.o)
-	$(LD) $+ -o $@ $(LDFLAGS)
+obj/main_affichage.o: src/main_affichage.cpp src/Image.h src/Pixel.h
+	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	$(CC) -c $(CCFLAGS) $(INCLUDE_DIR_SDL) $(INCLUDE_DIR) $(LIBS_SDL) $< -o $@
+obj/main_test.o: src/main_test.cpp src/Image.h src/Pixel.h
+	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
+
+obj/Image.o: src/Image.cpp src/Image.h src/Pixel.h
+	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
+
+obj/Pixel.o: src/Pixel.cpp src/Pixel.h
+	$(CC) -o $@ $< $(CCFLAGS)
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)/$(FINAL_TARGET_TEST) $(BIN_DIR)/$(FINAL_TARGET_AFFICHAGE)
+	rm obj/*.o
+
+veryclean: clean
+	rm $(TARGETS)
