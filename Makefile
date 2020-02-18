@@ -8,16 +8,16 @@ CCFLAGS = -Wall -c -ggdb
 
 all: $(TARGETS)
 
-bin/affichage: obj/main_affichage.o obj/Image.o obj/Pixel.o
+bin/affichage: obj/mainAffichage.o obj/Image.o obj/Pixel.o
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
-bin/test: obj/main_test.o obj/Image.o obj/Pixel.o
+bin/test: obj/mainTest.o obj/Image.o obj/Pixel.o
 	$(LD) -o $@ $^ $(LDFLAGS) $(INCLUDE_DIR_SDL)
 
-obj/main_affichage.o: src/main_affichage.cpp src/Image.h src/Pixel.h
+obj/mainAffichage.o: src/mainAffichage.cpp src/Image.h src/Pixel.h
 	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
 
-obj/main_test.o: src/main_test.cpp src/Image.h src/Pixel.h
+obj/mainTest.o: src/mainTest.cpp src/Image.h src/Pixel.h
 	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
 
 obj/Image.o: src/Image.cpp src/Image.h src/Pixel.h
@@ -28,6 +28,4 @@ obj/Pixel.o: src/Pixel.cpp src/Pixel.h
 
 clean:
 	rm obj/*.o
-
-veryclean: clean
 	rm $(TARGETS)
