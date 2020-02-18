@@ -8,15 +8,15 @@ private:
 
 public:
 	Pixel();
-	Pixel(unsigned char _r, unsigned char _g, unsigned char _b);
+	Pixel(unsigned char nr, unsigned char ng, unsigned char nb);
 
-	unsigned char getRed() const;
-	unsigned char getGreen() const;
-	unsigned char getBlue() const;
+	unsigned char getRouge() const;
+	unsigned char getVert() const;
+	unsigned char getBleu() const;
 
-	void setRed(unsigned char _r);
-	void setGreen(unsigned char _g);
-	void setBlue(unsigned char _b);
+	void setRouge(unsigned char nr);
+	void setVert(unsigned char ng);
+	void setBleu(unsigned char nb);
 
 	bool operator== (const Pixel& other);
 };

@@ -88,7 +88,7 @@ void Image::sauver(const string & filename) const {
     for(unsigned int y=0; y<dimy; ++y)
         for(unsigned int x=0; x<dimx; ++x) {
             Pixel& pix = getPix(x++,y);
-            fichier << +pix.getRed() << " " << +pix.getGreen() << " " << +pix.getBlue() << " ";
+            fichier << +pix.getRouge() << " " << +pix.getVert() << " " << +pix.getBleu() << " ";
         }
     cout << "Sauvegarde de l'image " << filename << " ... OK\n";
     fichier.close();
@@ -107,9 +107,9 @@ void Image::ouvrir(const string & filename) {
     for(unsigned int y=0; y<dimy; ++y)
         for(unsigned int x=0; x<dimx; ++x) {
             fichier >> r >> b >> g;
-            getPix(x,y).setRed(r);
-            getPix(x,y).setGreen(g);
-            getPix(x,y).setBlue(b);
+            getPix(x,y).setRouge(r);
+            getPix(x,y).setVert(g);
+            getPix(x,y).setBleu(b);
         }
     fichier.close();
     cout << "Lecture de l'image " << filename << " ... OK\n";
@@ -120,7 +120,7 @@ void Image::afficherConsole(){
     for(unsigned int y=0; y<dimy; ++y) {
         for(unsigned int x=0; x<dimx; ++x) {
             Pixel& pix = getPix(x,y);
-            cout << +pix.getRed() << " " << +pix.getGreen() << " " << +pix.getBlue() << " ";
+            cout << +pix.getRouge() << " " << +pix.getVert() << " " << +pix.getBleu() << " ";
         }
         cout << endl;
     }
@@ -146,7 +146,7 @@ void Image::display() const
 			for (unsigned int j = 0; j < dimy; ++j)
 			{
 				const Pixel p = tab[dimx * j + i];
-				SDL_SetRenderDrawColor(renderer, p.getRed(), p.getGreen(), p.getBlue(), 255);
+				SDL_SetRenderDrawColor(renderer, p.getRouge(), p.getVert(), p.getBleu(), 255);
 				SDL_RenderDrawPoint(renderer, i, j);
 			}
 		}

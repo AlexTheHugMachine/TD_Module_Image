@@ -7,46 +7,46 @@ Pixel::Pixel()
 	b = 0;
 }
 
-Pixel::Pixel(unsigned char _r, unsigned char _g, unsigned char _b)
+Pixel::Pixel(unsigned char nr, unsigned char ng, unsigned char nb)
 {
-	r = _r;
-	g = _g;
-	b = _b;
+	r = nr;
+	g = ng;
+	b = nb;
 }
 
-unsigned char Pixel::getRed() const
+unsigned char Pixel::getRouge() const
 {
 	return r;
 }
 
-unsigned char Pixel::getGreen() const
+unsigned char Pixel::getVert() const
 {
 	return g;
 }
 
-unsigned char Pixel::getBlue() const
+unsigned char Pixel::getBleu() const
 {
 	return b;
 }
 
-void Pixel::setRed(unsigned char _r)
+void Pixel::setRouge(unsigned char nr)
 {
-	r = _r;
+	r = nr;
 }
 
-void Pixel::setGreen(unsigned char _g)
+void Pixel::setVert(unsigned char ng)
 {
-	g = _g;
+	g = ng;
 }
 
-void Pixel::setBlue(unsigned char _b)
+void Pixel::setBleu(unsigned char nb)
 {
-	b = _b;
+	b = nb;
 }
 
 bool Pixel::operator==(const Pixel& other)
 {
-	return r == other.getRed() &&
-		g == other.getGreen() &&
-		b == other.getBlue();
+	return r == other.getRouge() &&
+		g == other.getVert() &&
+		b == other.getBleu();
 }
