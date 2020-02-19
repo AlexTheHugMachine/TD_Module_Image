@@ -98,21 +98,24 @@ void Image::sauver(const string & filename) const
     fichier.close();
 }
 
+
 void Image::ouvrir(const string & filename) {
-    ifstream fichier (filename.c_str());
-        char r,g,b;
+    ifstream fichier(filename.c_str());
+    assert(fichier.is_open());
+
+        unsigned int r,g,b;
         string mot;
-        dimx = dimy = 0;
+        //dimx = dimy = 0;
         fichier >> mot >> dimx >> dimy >> mot;
         assert(dimx > 0 && dimy > 0);
-        if (tab != NULL) delete [] tab;
-        tab = new Pixel [dimx*dimy];
+        if (tab != NULL) delete[] tab;
+        tab = new Pixel[dimx*dimy];
     for(unsigned int y=0; y<dimy; ++y)
         for(unsigned int x=0; x<dimx; ++x) {
-            fichier >> r >> b >> g;
-            getPix(x,y).setRouge(r);
-            getPix(x,y).setVert(g);
-            getPix(x,y).setBleu(b);
+            fichier >> r >> g >> b;
+            getPix(x,y).setRouge((unsigned char)r);
+            getPix(x,y).setVert((unsigned char)g);
+            getPix(x,y).setBleu((unsigned char)b);
         }
     fichier.close();
     cout << "Lecture de l'image " << filename << " ... OK\n";
