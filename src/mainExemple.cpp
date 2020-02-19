@@ -17,6 +17,7 @@ int main() {
    image2.ouvrir("./data/image1.ppm");
    image2.dessinerRectangle(18, 5, 31, 47, blanc);
    image2.dessinerRectangle(2, 32, 10, 41, rose);
+   image2.afficher();
    image2.sauver("./data/image2.ppm");
  
    return 0;    
