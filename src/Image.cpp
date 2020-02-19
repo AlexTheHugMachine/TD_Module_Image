@@ -12,7 +12,7 @@ Image::Image()
 	tab = nullptr;
 	dimx = 0;
 	dimy = 0;
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "SDL_Init error: " << SDL_GetError() << endl;
 	}
 	window = nullptr;
@@ -26,9 +26,12 @@ Image::Image(int dimensionX, int dimensionY)
 	dimy = dimensionY;
 	tab = new Pixel[dimx * dimy];
 
-	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		cerr << "SDL_Init error: " << SDL_GetError() << endl;
-	}
+
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        cout << "Erreur lors de l'initialisation de la SDL : " << SDL_GetError() << endl;
+		SDL_Quit();
+		exit(1);
+    }
 
 	window = SDL_CreateWindow("Module Image", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
 	if (window == nullptr)
@@ -45,12 +48,12 @@ Image::Image(int dimensionX, int dimensionY)
 
 Image::~Image()
 {
-	delete[] tab;
-	tab = nullptr;
-	dimx = dimy = 0;
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit(); 
+	delete[] tab;
+	tab = nullptr;
+	dimx = dimy = 0;
 }
 
 Pixel& Image::getPix(int x, int y) const
@@ -79,8 +82,9 @@ void Image::effacer(const Pixel& couleur)
 	dessinerRectangle(0, 0, dimx - 1, dimy - 1, couleur);
 }
 
-void Image::sauver(const string & filename) const {
-    ofstream fichier (filename.c_str());
+void Image::sauver(const string & filename) const 
+{
+    ofstream fichier(filename.c_str());
     assert(fichier.is_open());
     fichier << "P3" << endl;
     fichier << dimx << " " << dimy << endl;
@@ -96,7 +100,6 @@ void Image::sauver(const string & filename) const {
 
 void Image::ouvrir(const string & filename) {
     ifstream fichier (filename.c_str());
-    assert(fichier.is_open());
         char r,g,b;
         string mot;
         dimx = dimy = 0;

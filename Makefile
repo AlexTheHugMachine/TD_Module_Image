@@ -1,4 +1,4 @@
-TARGETS = bin/affichage bin/test #bin/exemple
+TARGETS = bin/affichage bin/test bin/exemple
 INCLUDE_DIR_SDL = -I/usr/include/SDL2
 
 CC = g++
@@ -12,12 +12,18 @@ bin/affichage: obj/mainAffichage.o obj/Image.o obj/Pixel.o
 	$(LD) -o $@ $^ $(LDFLAGS) 
 
 bin/test: obj/mainTest.o obj/Image.o obj/Pixel.o
-	$(LD) -o $@ $^ $(LDFLAGS) $(INCLUDE_DIR_SDL)
+	$(LD) -o $@ $^ $(LDFLAGS)
+
+bin/exemple: obj/mainExemple.o obj/Image.o obj/Pixel.o
+	$(LD) -o $@ $^ $(LDFLAGS)
 
 obj/mainAffichage.o: src/mainAffichage.cpp src/Image.h src/Pixel.h
 	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
 
 obj/mainTest.o: src/mainTest.cpp src/Image.h src/Pixel.h
+	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
+
+obj/mainExemple.o: src/mainExemple.cpp src/Image.h src/Pixel.h
 	$(CC) -o $@ $< $(CCFLAGS) $(INCLUDE_DIR_SDL)
 
 obj/Image.o: src/Image.cpp src/Image.h src/Pixel.h
