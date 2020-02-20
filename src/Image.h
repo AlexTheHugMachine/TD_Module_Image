@@ -16,6 +16,15 @@ private:
 
 public:
 	Image();
+	/*
+	 * @brief
+	 * Constructeur de la classe Image avec deux paramètres.
+	 * @param
+	 * Deux entiers dimensionX, qui représente la dimension de l'image sur l'axe x,
+	 * et dimensionY, qui représente la dimension de l'image sur l'axe y.
+	 * @warning
+	 * Ne pas mettre un autre type qu'un nombre entier.
+	 */
 	Image(int dimensionX, int dimensionY);
 	~Image();
 
