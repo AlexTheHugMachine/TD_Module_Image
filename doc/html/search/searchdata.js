@@ -2,7 +2,7 @@ var indexSectionsWithContent =
 {
   0: "adegiopst~",
   1: "ip",
-  2: "adegiost~"
+  2: "adegiopst~"
 };
 
 var indexSectionNames =

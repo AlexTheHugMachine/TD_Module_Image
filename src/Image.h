@@ -80,7 +80,7 @@ public:
 	 * @brief
 	 * Afficher l'image avec SDL2
 	 */
-	void afficher() const;
+	void afficher();
 
 	/**
 	 * @brief

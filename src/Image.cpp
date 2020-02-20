@@ -164,25 +164,58 @@ void Image::afficherConsole() const{
     }
 }
 
-void Image::afficher() const
+void Image::afficher()
 {
 	SDL_Event windowEvent;
+	bool quit = false;
 
-	while (true)
+	while (!quit)
 	{
 		if (SDL_PollEvent(&windowEvent))
 		{
 			if (windowEvent.type == SDL_QUIT)
 			{
-				break;
+				quit = true;
+			}
+			if(windowEvent.type == SDL_KEYDOWN)
+			{
+				switch(windowEvent.key.keysym.scancode)
+				{
+					case SDL_SCANCODE_ESCAPE:
+						if(texture != nullptr) SDL_DestroyTexture(texture);
+						if(renderer != nullptr) SDL_DestroyRenderer(renderer);
+						if(window != nullptr) SDL_DestroyWindow(window);
+						SDL_Quit(); 
+						quit = true;
+						break;
+
+					case SDL_SCANCODE_T:
+						zoomLevel++;
+						if(zoomLevel > 19) zoomLevel = 19;
+						break;
+
+					case SDL_SCANCODE_G:
+						zoomLevel--;
+						if(zoomLevel < 0) zoomLevel = 0;
+						break;
+
+					default:
+						break;
+				}
 			}
 		}
+		
+		if(quit) break;
 
 		int col = 169;
 		SDL_SetRenderDrawColor(renderer, col, col, col, 255);
 		SDL_RenderClear(renderer);
 
-		if(SDL_SetRenderTarget(renderer, texture) != 0) cout<<"Fuck"<<endl;
+		if(SDL_SetRenderTarget(renderer, texture) != 0)
+		{
+			cout<<"Erreur SDL_SetRenderTarget : "<< SDL_GetError() <<endl;
+			exit(1);
+		}
 		for (unsigned int i = 0; i < dimx; ++i)
 		{
 			for (unsigned int j = 0; j < dimy; ++j)
@@ -193,7 +226,6 @@ void Image::afficher() const
 			}
 		}
 		SDL_SetRenderTarget(renderer, NULL);
-
 
 		SDL_Rect r;
 		r.x = 0;
@@ -210,8 +242,6 @@ void Image::afficher() const
 		r.y = (r.y-r.h/2) + HEIGHT/2;
 		SDL_RenderCopy(renderer, texture, NULL, &r);
 		
-
-
 		SDL_RenderPresent(renderer);
 	}
 }
@@ -223,7 +253,7 @@ void Image::testRegression()
 	Pixel p2(255, 255, 255);
 	if (p1 == p2)
 	{
-		cout << "Pixel Equality check is valid!" << endl << endl;
+		cout << "Le test d'egalite de 2 Pixels marche" << endl << endl;
 
 	//Test of getPix
 
@@ -242,7 +272,7 @@ void Image::testRegression()
 			cout << "ERROR : Pixel retured from getPix is not the original (not a reference)" << endl << endl;
 			isGetPixValid = false;
 		}
-		if (isGetPixValid) cout << "getPix is Valid!!" << endl << endl;
+		if (isGetPixValid) cout << "getPix marche" << endl << endl;
 
 
 	// Test dessinerRectangle
@@ -259,7 +289,7 @@ void Image::testRegression()
 				}
 			}
 		}
-		if (isDrawRectValid) cout << "dessinerRectangle is Valid" << endl << endl;
+		if (isDrawRectValid) cout << "dessinerRectangle marche" << endl << endl;
 		else cout << "ERROR : dessinerRectangle doesn't work !!" << endl << endl;
 
 	//Test setPix
@@ -268,7 +298,7 @@ void Image::testRegression()
 
 		if (pInit == tab[1*dimx + 1])
 		{
-			cout << "setPix est validee" << endl << endl;
+			cout << "setPix marche" << endl << endl;
 		}
 		else
 		{
@@ -287,8 +317,8 @@ void Image::testRegression()
 				}
 			}
 		}
-		if (isEraseValid) cout << "Erase is Valid" << endl << endl;
-		else cout << "ERROR : Erase doesn't work !!" << endl << endl;
+		if (isEraseValid) cout << "Effacer marche" << endl << endl;
+		else cout << "ERROR : Effacer doesn't work !!" << endl << endl;
 
 	}
 	else // Pixel equality check failed...
