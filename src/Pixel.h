@@ -32,6 +32,8 @@ public:
 	/**
 	* @brief
 	* Accesseur de la composante Verte
+	* @param
+	* Rien
 	* @return
 	* Retourne un entier entre 0 et 255
 	*/
@@ -40,6 +42,8 @@ public:
 	/**
 	* @brief
 	* Accesseur de la composante Bleue
+	* @param
+	* Rien
 	* @return
 	* Retourne un entier entre 0 et 255
 	*/

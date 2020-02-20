@@ -37,16 +37,18 @@ public:
 	 */
 	 
 	Image(int dimensionX, int dimensionY);
+	
 	/**
 	 * @brief
 	 * Destructeur de la classe Image
 	 */
-
 	~Image();
 
 	/**
 	 * @brief
 	 * Accesseur d'un  pixel de l'image
+	 * @param
+	 * x et y coordonées entières du Pixel de l'image
 	 * @return
 	 * Référence au Pixel original de l'image
 	 * @warning
@@ -79,6 +81,8 @@ public:
 	/**
 	 * @brief
 	 * Afficher l'image avec SDL2
+	 * @param
+	 * Rien
 	 */
 	void afficher();
 
@@ -101,12 +105,16 @@ public:
 	/**
 	 * @brief
 	 * Afficher l'image dans la console
+	 * @param
+	 * Rien
 	 */
 	void afficherConsole() const;
 
 	/**
 	 * @brief
 	 * Teste les fonctionalités des fonctions de manipulation de l'image
+	 * @param
+	 * Rien
 	 */
 	void testRegression();
 
