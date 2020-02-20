@@ -7,6 +7,10 @@ private:
 	unsigned char r, g, b;
 
 public:
+	/**
+	* @brief
+	* 
+	*/
 	Pixel();
 	Pixel(unsigned char nr, unsigned char ng, unsigned char nb);
 
