@@ -12,11 +12,14 @@ Image::Image()
 	tab = nullptr;
 	dimx = 0;
 	dimy = 0;
+	zoomLevel = 5;
+	zoomIncrement = 10;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 		cerr << "SDL_Init error: " << SDL_GetError() << endl;
 	}
 	window = nullptr;
 	renderer = nullptr;
+	texture = nullptr;
 }
 
 Image::Image(int dimensionX, int dimensionY)
@@ -25,6 +28,8 @@ Image::Image(int dimensionX, int dimensionY)
 	dimx = dimensionX;
 	dimy = dimensionY;
 	tab = new Pixel[dimx * dimy];
+	zoomLevel = -5000;
+	zoomIncrement = 10;
 
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -44,10 +49,17 @@ Image::Image(int dimensionX, int dimensionY)
 	{
 		cerr << "SDL_CreateRenderer error : " << SDL_GetError() << endl;
 	}
+
+	texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, dimx, dimy);
+	if (texture == nullptr)
+	{
+		cerr << "SDL_CreateTexture error : " << SDL_GetError() << endl;
+	}
 }
 
 Image::~Image()
 {
+	if(texture != nullptr) SDL_DestroyTexture(texture);
 	if(renderer != nullptr) SDL_DestroyRenderer(renderer);
 	if(window != nullptr) SDL_DestroyWindow(window);
 	SDL_Quit(); 
@@ -165,8 +177,11 @@ void Image::afficher() const
 				break;
 			}
 		}
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderClear(renderer);
+
+		if(SDL_SetRenderTarget(renderer, texture) != 0) cout<<"Fuck"<<endl;
 		for (unsigned int i = 0; i < dimx; ++i)
 		{
 			for (unsigned int j = 0; j < dimy; ++j)
@@ -176,6 +191,26 @@ void Image::afficher() const
 				SDL_RenderDrawPoint(renderer, i, j);
 			}
 		}
+		SDL_SetRenderTarget(renderer, NULL);
+
+
+		SDL_Rect r;
+		r.x = 0;
+		r.y = 0;
+		r.w = dimx + zoomIncrement * zoomLevel;
+		r.h = dimy + zoomIncrement * zoomLevel;
+
+		if(r.w < (signed int) dimx) r.w = dimx;
+		if(r.h < (signed int) dimy) r.h = dimy;
+		if(r.w > WIDTH) r.w = WIDTH;
+		if(r.h > HEIGHT) r.h = HEIGHT;
+
+		r.x = (r.x-r.w/2) + WIDTH/2;
+		r.y = (r.y-r.h/2) + HEIGHT/2;
+		SDL_RenderCopy(renderer, texture, NULL, &r);
+		
+
+
 		SDL_RenderPresent(renderer);
 	}
 }

@@ -13,6 +13,9 @@ private:
 	unsigned int dimx, dimy;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	SDL_Texture* texture;
+	unsigned int zoomIncrement;
+	int zoomLevel;
 
 public:
 	/**
