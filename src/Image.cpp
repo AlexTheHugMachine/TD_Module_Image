@@ -48,8 +48,8 @@ Image::Image(int dimensionX, int dimensionY)
 
 Image::~Image()
 {
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	if(renderer != nullptr) SDL_DestroyRenderer(renderer);
+	if(window != nullptr) SDL_DestroyWindow(window);
 	SDL_Quit(); 
 	delete[] tab;
 	tab = nullptr;
@@ -58,16 +58,27 @@ Image::~Image()
 
 Pixel& Image::getPix(int x, int y) const
 {
+	assert(x >= 0 && y >= 0);
 	return tab[y * dimx + x] ;
 }
 
 void Image::setPix(int x, int y, const Pixel& couleur)
 {
+	assert(x >= 0 && y >= 0);
+	assert(couleur.getRouge() >= 0 && couleur.getRouge() <= 255 &&
+	couleur.getVert() >= 0 && couleur.getVert() <= 255 &&
+	couleur.getBleu() >= 0 && couleur.getBleu() <= 255);
+
 	tab[y * dimx + x] = couleur;
 }
 
 void Image::dessinerRectangle(int Xmin, int Ymin, int Xmax, int Ymax, const Pixel& couleur)
 {
+	assert(Xmin >= 0 && Ymin >= 0 && Xmax >= 0 && Ymax >= 0);
+	assert(couleur.getRouge() >= 0 && couleur.getRouge() <= 255 &&
+	couleur.getVert() >= 0 && couleur.getVert() <= 255 &&
+	couleur.getBleu() >= 0 && couleur.getBleu() <= 255);
+	
 	for (int i = Xmin; i <= Xmax; i++)
 	{
 		for (int j = Ymin; j <= Ymax; j++)
@@ -79,11 +90,17 @@ void Image::dessinerRectangle(int Xmin, int Ymin, int Xmax, int Ymax, const Pixe
 
 void Image::effacer(const Pixel& couleur)
 {
+	assert(couleur.getRouge() >= 0 && couleur.getRouge() <= 255 &&
+	couleur.getVert() >= 0 && couleur.getVert() <= 255 &&
+	couleur.getBleu() >= 0 && couleur.getBleu() <= 255);
+
 	dessinerRectangle(0, 0, dimx - 1, dimy - 1, couleur);
 }
 
 void Image::sauver(const string & filename) const 
 {
+	assert(!filename.empty());
+
     ofstream fichier(filename.c_str());
     assert(fichier.is_open());
     fichier << "P3" << endl;
@@ -99,7 +116,10 @@ void Image::sauver(const string & filename) const
 }
 
 
-void Image::ouvrir(const string & filename) {
+void Image::ouvrir(const string & filename) 
+{
+	assert(!filename.empty());
+
     ifstream fichier(filename.c_str());
     assert(fichier.is_open());
 
