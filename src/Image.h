@@ -5,7 +5,7 @@
 #include "Pixel.h"
 #include <SDL.h>
 
-const int WIDTH = 800, HEIGHT = 600;
+const int WIDTH = 200, HEIGHT = 200;
 class Image
 {
 private:

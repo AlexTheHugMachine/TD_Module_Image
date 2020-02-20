@@ -28,7 +28,7 @@ Image::Image(int dimensionX, int dimensionY)
 	dimx = dimensionX;
 	dimy = dimensionY;
 	tab = new Pixel[dimx * dimy];
-	zoomLevel = -5000;
+	zoomLevel = 5;
 	zoomIncrement = 10;
 
 
@@ -178,7 +178,8 @@ void Image::afficher() const
 			}
 		}
 
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		int col = 169;
+		SDL_SetRenderDrawColor(renderer, col, col, col, 255);
 		SDL_RenderClear(renderer);
 
 		if(SDL_SetRenderTarget(renderer, texture) != 0) cout<<"Fuck"<<endl;
